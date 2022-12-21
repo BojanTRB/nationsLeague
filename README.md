@@ -1,6 +1,6 @@
 Bojan Trbojevic, Marko Lukic
 
-# Fußballturnier
+# Fußballliga
 
 Erstes Konzept:
 
