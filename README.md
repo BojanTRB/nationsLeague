@@ -2,11 +2,48 @@ Bojan Trbojevic, Marko Lukic
 
 # Fußballliga
 
-Erstes Konzept:
+Tabelle 1: Mannschaften
 
-* Turnier: Name, Ort, Datum, Anzahl der teilnehmenden Teams, Spielregeln, Anzahl der Spiele, Länge des Turniers
-* Teams: Name, Spieler, Trainer, Logo, Spielerliste, Liste der gespielten Spiele, Punktestand
-* Spiele: Datum, Ort, Teams, Spielerliste, Ergebnis
-* Spieler: Name, Alter, Position, Nationalität, Erfahrung, Statistiken
-* Trainer: Name, Alter, Nationalität, Erfahrung, Statistiken
-* Statistiken: Anzahl der Tore, Assists, Karten, Verletzungen, etc.
+- Mannschaftsname
+- Anzahl der Spieler
+- Heimstadion
+
+Tabelle 2: Spieler
+
+- Nachname
+- Vorname
+- Geburtsdatum
+- Nationalität
+- Position
+- Aktueller Verein
+
+Tabelle 3: Spielergebnisse
+
+- Matchdatum
+- Heimteam
+- Auswärtsteam
+- Heimtore
+- Auswärtstore
+
+Tabelle 4: Saison
+
+- Jahr
+- Anzahl der Teams
+- Anzahl der Spiele
+- Anzahl der gespielten Runden
+
+Tabelle 5: Stadien
+
+- Stadionname
+- Anzahl an Sitzplätzen
+- Anzahl an Stehplätzen
+- Stadt
+
+Tabelle 6: Statistiken
+
+- Spieler
+- Saison
+- Spiele
+- Tore
+- Assists
+- Karten (Gelb/
