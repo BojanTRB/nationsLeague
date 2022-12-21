@@ -1,7 +1,5 @@
 # Bundesliga
 
-### Contributors:
-
 | Name            | Email         | 
 | -------------   |:-------------:| 
 | Bojan Trbojevic | trb22665@spengergasse.at | 
@@ -10,4 +8,4 @@
 
 ### Problemstellung:
 
-Wir erstellen ein Datenmodell für den deutschen Fußballverband. 
+> Wir erstellen ein Datenmodell für den deutschen Fußballverband. Dieser sollte einen guten Überblick über die Liga bieten sollen.
