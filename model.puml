@@ -1,23 +1,23 @@
 entity League{
     * Id <<PK>>
     --
-    * name
-    * createdOn
+    * Name
+    * CreatedOn
 }
 
 entity Team{
     * Id <<PK>>
     --
-    * name
-    league <<FK>>
+    * Name
+    LeagueId <<FK>>
 }
 
 entity Player{
     * Id <<PK>>
     --
-    * name
-    * birthdate
-    nation
+    * Name
+    * BirthDate
+    Nation
 }
 
 entity TeamTrainer{
@@ -50,18 +50,18 @@ entity TeamPlayer{
 entity Trainer{
     * Id <<PK>> 
     --
-    * name 
-    * birthdate 
-    nation
+    * Name 
+    * BirthDate 
+    Nation
 }
 
 entity Game {
     * Id <<PK>> 
     --
-    * gameDay
-    * gameDate
-    homeTeam <<FK>>
-    awayTeam <<FK>>
+    * GameDay
+    * GameDate
+    HomeTeam <<FK>>
+    AwayTeam <<FK>>
     
 }
 League ||--o{ Team
