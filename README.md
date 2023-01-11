@@ -8,4 +8,4 @@
 
 ### Problemstellung:
 
-> Wir erstellen ein Datenmodell für den deutschen Fußballverband. Dieser sollte einen guten Überblick über die Liga bieten sollen.
+> Wir erstellen ein Datenmodell für eine Fußball-Liga. Dieser sollte einen guten Überblick über die Liga bieten sollen.
