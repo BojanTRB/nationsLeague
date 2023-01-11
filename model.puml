@@ -1,55 +1,75 @@
 entity League{
-    Id 
-    name
-    createdOn
+    * Id <<PK>>
+    --
+    * name
+    * createdOn
 }
 
 entity Team{
-    Id 
-    name
+    * Id <<PK>>
     --
+    * name
     league <<FK>>
-    trainer <<FK>>
 }
 
 entity Player{
-    Id 
-    teamId
-    name
-    birthdate
+    * Id <<PK>>
+    --
+    * name
+    * birthdate
     nation
-    amountOfGames
-    amountOfGoals
-    amountOfAssists
 }
 
 entity TeamTrainer{
-    Id <<generated>>
+    * Id <<generated>>
     ---
+    * TrainerFrom
+    TrainerTo
     TrainerId <<FK>>
     TeamId <<FK>>
-    TrainerFrom
-    TrainerTo
+    
+}
+
+entity Goals{
+    * Minutue <<PK>>
+    * GameId <<FK>>
+    --
+    * TeamPlayerId <<FK>>
+}
+
+entity TeamPlayer{
+    * Id <<generated>>
+    ---
+    * PlayerFrom
+    PlayerTo
+    PlayerId <<FK>>
+    TeamId <<FK>>
+    
 }
 
 entity Trainer{
-    Id 
-    name 
-    birthdate 
-
+    * Id <<PK>> 
     --
-    Team <<FK>>
+    * name 
+    * birthdate 
+    nation
 }
 
 entity Game {
-    Id 
-    gameDay
-    gameDate
-    goalsHomeTeam
-    goalsAwayTeam
+    * Id <<PK>> 
     --
+    * gameDay
+    * gameDate
     homeTeam <<FK>>
     awayTeam <<FK>>
     
 }
 League ||--o{ Team
+Team ||--o{ TeamTrainer
+Team ||--o{ TeamPlayer
+Team ||--o{ Game
+Team ||--o{ Game
+Player ||--o{ TeamPlayer
+Trainer ||--o{ TeamTrainer
+Game ||--o{ Goals
+TeamPlayer ||--o{ Goals
