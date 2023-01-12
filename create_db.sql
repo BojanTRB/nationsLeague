@@ -79,9 +79,9 @@ CREATE TABLE TeamPlayer (
 );
 
 CREATE TABLE Goals (
-	[Minute] INTEGER,
-	GameId INTEGER,
-	TeamPlayerId INTEGER,
+	[Minute] INTEGER NOT NULL,
+	GameId INTEGER NOT NULL,
+	TeamPlayerId INTEGER NOT NULL,
 	PRIMARY KEY ([Minute], GameId),
 	FOREIGN KEY (GameId) REFERENCES Game(Id),
 	FOREIGN KEY (TeamPlayerId) REFERENCES TeamPlayer(Id)
