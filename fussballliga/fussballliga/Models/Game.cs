@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace fussballliga.Models
 {
+
     [Table("Game")]
     public partial class Game
     {
