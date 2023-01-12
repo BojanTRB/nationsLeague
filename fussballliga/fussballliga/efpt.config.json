@@ -1,0 +1,68 @@
+﻿{
+   "CodeGenerationMode": 2,
+   "ContextClassName": "SoccerLeagueContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": true,
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": "Models",
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "fussballliga",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+   "Tables": [
+      {
+         "Name": "[dbo].[Game]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Goals]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[League]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Player]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Team]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[TeamPlayer]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[TeamTrainer]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Trainer]",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": "f30db59a0266.SoccerLeague",
+   "UncountableWords": null,
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": true,
+   "UseDbContextSplitting": false,
+   "UseFluentApiOnly": false,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": true,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UseSchemaFolders": false,
+   "UseSpatial": false,
+   "UseT4": false
+}
