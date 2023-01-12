@@ -58,8 +58,8 @@ entity Trainer{
 entity Game {
     * Id <<PK>> 
     --
-    * GameDay
-    * GameDate
+    GameDay
+    GameDate
     HomeTeam <<FK>>
     AwayTeam <<FK>>
     
