@@ -2,6 +2,8 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using Bogus;
+using Bogus.DataSets;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -106,5 +108,119 @@ namespace fussballliga.Models
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+        public void Seed()
+        {
+            Randomizer.Seed = new Random(1039);
+            var faker = new Faker("de");
+
+            var leagues = new Faker<League>("de").CustomInstantiator(f =>
+            {
+                return new League()
+                { Name = f.Name.FirstName(),
+                    CreatedOn = f.Date.Past(),
+                };
+            })
+            .Generate(10)
+            .ToList();
+            SaveChanges();
+
+            var trainers = new Faker<Trainer>("de").CustomInstantiator(f =>
+            {
+                return new Trainer()
+                {
+                    Name = f.Name.FirstName(),
+                    BirthDate = f.Date.Between(new DateTime(1975, 01, 01), new DateTime(2000, 01, 01))
+                };
+            })
+            .Generate(10)
+            .ToList();
+            SaveChanges();
+
+            var players = new Faker<Player>("de").CustomInstantiator(f =>
+            {
+                return new Player()
+                {
+                    Name = f.Name.FirstName(),
+                    BirthDate = f.Date.Between(new DateTime(1975, 01, 01), new DateTime(2000, 01, 01))
+                };
+            })
+            .Generate(10)
+            .ToList();
+            SaveChanges();
+
+            var teams = new Faker<Team>("de").CustomInstantiator(f =>
+            {
+                return new Team()
+                {
+                    Name = f.Name.FirstName(),
+                    LeagueId = f.Random.ListItem(leagues).Id
+                };
+            })
+            .Generate(10)
+            .ToList();
+            SaveChanges();
+
+            var teamTrainers = new Faker<TeamTrainer>("de").CustomInstantiator(f =>
+            {
+                return new TeamTrainer()
+                {
+                    TrainerFrom = f.Date.Past(),
+                    TrainerId = f.Random.ListItem(trainers).Id,
+                    TeamId = f.Random.ListItem(teams).Id
+                };
+            })
+            .Generate(10)
+            .ToList();
+            SaveChanges();
+
+            var teamPlayers = new Faker<TeamPlayer>("de").CustomInstantiator(f =>
+            {
+                return new TeamPlayer()
+                {
+                    PlayerFrom = f.Date.Past(),
+                    PlayerId = f.Random.ListItem(players).Id,
+                    TeamId = f.Random.ListItem(teams).Id
+                };
+            })
+            .Generate(10)
+            .ToList();
+            SaveChanges();
+
+            var games = new Faker<Game>("de").CustomInstantiator(f =>
+            {
+                int homeTeam;
+                int awayTeam;
+                do
+                {
+                    homeTeam = f.Random.ListItem(teams).Id;
+                    awayTeam = f.Random.ListItem(teams).Id;
+                } while (homeTeam == awayTeam);
+
+                return new Game()
+                {
+                    GameDate = f.Date.Future(),
+                    HomeTeam = f.Random.ListItem(teams).Id,
+                    AwayTeam = f.Random.ListItem(teams).Id
+                };
+            })
+            .Generate(10)
+            .ToList();
+            SaveChanges();
+
+            var goals = new Faker<Goal>("de").CustomInstantiator(f =>
+            {
+                int game = f.Random.ListItem(games).Id;
+                return new Goal()
+                {
+                    Minute = f.Random.Int(0, 90),
+                    GameId = game,
+                    TeamId = f.Random.ListItem(new List<int>() { game.HomeTeam.Id, game.AwayTeam.Id })
+                };
+            })
+            .Generate(10)
+            .ToList();
+            SaveChanges();
+        }
     }
 }

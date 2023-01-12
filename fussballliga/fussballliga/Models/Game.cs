@@ -18,7 +18,7 @@ namespace fussballliga.Models
 
         [Key]
         public int Id { get; set; }
-        public int GameDay { get; set; }
+        public int? GameDay { get; set; }
         [Column(TypeName = "date")]
         public DateTime GameDate { get; set; }
         public int HomeTeam { get; set; }

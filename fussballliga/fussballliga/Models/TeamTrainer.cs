@@ -17,8 +17,8 @@ namespace fussballliga.Models
         public DateTime TrainerFrom { get; set; }
         [Column(TypeName = "date")]
         public DateTime? TrainerTo { get; set; }
-        public int? TrainerId { get; set; }
-        public int? TeamId { get; set; }
+        public int TrainerId { get; set; }
+        public int TeamId { get; set; }
 
         [ForeignKey("TeamId")]
         [InverseProperty("TeamTrainers")]

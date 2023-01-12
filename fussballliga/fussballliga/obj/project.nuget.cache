@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "H79DDFj07BOhkAqdo1nXTQsRCjXev9iY8Te0UqMl0DSHM5Nk8Q7mknEQx2pdhSlEWP1E/HEQzZA646zwedGlGw==",
+  "dgSpecHash": "UaZLu3ZAaPaU2o1ADRewOqdTWtpuB7rv2rr6p3inFh2u+RsJsPB941XtB0nTluhAbV40LnBYuqsjny8ql9J7Wg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Bojan\\Desktop\\fussballliga\\fussballliga\\fussballliga.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Bojan\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\Bojan\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
+    "C:\\Users\\Bojan\\.nuget\\packages\\bogus\\34.0.2\\bogus.34.0.2.nupkg.sha512",
     "C:\\Users\\Bojan\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\Bojan\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\Bojan\\.nuget\\packages\\microsoft.data.sqlclient\\5.0.1\\microsoft.data.sqlclient.5.0.1.nupkg.sha512",
