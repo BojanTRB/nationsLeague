@@ -61,3 +61,4 @@ C:\Users\Bojan\Desktop\fussballliga\fussballliga\obj\Debug\net6.0\refint\fussbal
 C:\Users\Bojan\Desktop\fussballliga\fussballliga\obj\Debug\net6.0\fussballliga.pdb
 C:\Users\Bojan\Desktop\fussballliga\fussballliga\obj\Debug\net6.0\fussballliga.genruntimeconfig.cache
 C:\Users\Bojan\Desktop\fussballliga\fussballliga\obj\Debug\net6.0\ref\fussballliga.dll
+C:\Users\Bojan\Desktop\fussballliga\fussballliga\bin\Debug\net6.0\Bogus.dll

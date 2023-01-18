@@ -2,10 +2,12 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.Data;
 using Bogus;
 using Bogus.DataSets;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace fussballliga.Models
 {
@@ -105,6 +107,7 @@ namespace fussballliga.Models
             });
 
             OnModelCreatingPartial(modelBuilder);
+            
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
@@ -117,13 +120,16 @@ namespace fussballliga.Models
             var leagues = new Faker<League>("de").CustomInstantiator(f =>
             {
                 return new League()
-                { Name = f.Name.FirstName(),
+                {
+                    Name = f.Name.FirstName(),
                     CreatedOn = f.Date.Past(),
                 };
             })
-            .Generate(10)
+            .Generate(1000)
             .ToList();
+            Leagues.AddRange(leagues);
             SaveChanges();
+            Console.WriteLine("Created leagues");
 
             var trainers = new Faker<Trainer>("de").CustomInstantiator(f =>
             {
@@ -133,9 +139,11 @@ namespace fussballliga.Models
                     BirthDate = f.Date.Between(new DateTime(1975, 01, 01), new DateTime(2000, 01, 01))
                 };
             })
-            .Generate(10)
+            .Generate(1000)
             .ToList();
+            Trainers.AddRange(trainers);
             SaveChanges();
+            Console.WriteLine("Created trainers");
 
             var players = new Faker<Player>("de").CustomInstantiator(f =>
             {
@@ -145,82 +153,88 @@ namespace fussballliga.Models
                     BirthDate = f.Date.Between(new DateTime(1975, 01, 01), new DateTime(2000, 01, 01))
                 };
             })
-            .Generate(10)
+            .Generate(1000)
             .ToList();
+            Players.AddRange(players);
             SaveChanges();
+            Console.WriteLine("Created players");
 
             var teams = new Faker<Team>("de").CustomInstantiator(f =>
             {
-                return new Team()
+                var team = new Team()
                 {
                     Name = f.Name.FirstName(),
                     LeagueId = f.Random.ListItem(leagues).Id
                 };
-            })
-            .Generate(10)
-            .ToList();
-            SaveChanges();
-
-            var teamTrainers = new Faker<TeamTrainer>("de").CustomInstantiator(f =>
-            {
-                return new TeamTrainer()
+                var teamPlayers = new Faker<TeamPlayer>("de").CustomInstantiator(f =>
                 {
-                    TrainerFrom = f.Date.Past(),
-                    TrainerId = f.Random.ListItem(trainers).Id,
-                    TeamId = f.Random.ListItem(teams).Id
-                };
-            })
-            .Generate(10)
-            .ToList();
-            SaveChanges();
+                    return new TeamPlayer()
+                    {
+                        PlayerFrom = f.Date.Past(),
+                        Player = f.Random.ListItem(players),
+                        Team = team
+                    };
+                })
+                .Generate(20)
+                .ToList();
+                team.TeamPlayers = teamPlayers;
 
-            var teamPlayers = new Faker<TeamPlayer>("de").CustomInstantiator(f =>
-            {
-                return new TeamPlayer()
+                var teamTrainers = new Faker<TeamTrainer>("de").CustomInstantiator(f =>
                 {
-                    PlayerFrom = f.Date.Past(),
-                    PlayerId = f.Random.ListItem(players).Id,
-                    TeamId = f.Random.ListItem(teams).Id
-                };
+                    return new TeamTrainer()
+                    {
+                        TrainerFrom = f.Date.Past(),
+                        Trainer = f.Random.ListItem(trainers),
+                        Team = team
+                    };
+                })
+                .Generate(3)
+                .ToList();
+                return team;
             })
-            .Generate(10)
+            .Generate(100)
+            .GroupBy(a => a.Name).Select(g => g.First())   // (6)
             .ToList();
+            Teams.AddRange(teams);
             SaveChanges();
+            Console.WriteLine("Created teams");
 
             var games = new Faker<Game>("de").CustomInstantiator(f =>
             {
-                int homeTeam;
-                int awayTeam;
-                do
-                {
-                    homeTeam = f.Random.ListItem(teams).Id;
-                    awayTeam = f.Random.ListItem(teams).Id;
-                } while (homeTeam == awayTeam);
+                var homeTeam = f.Random.ListItem(teams);
+                var awayTeam = f.Random.ListItem(teams.Where(t=>t!=homeTeam).ToList());
 
-                return new Game()
+                var g =  new Game()
                 {
                     GameDate = f.Date.Future(),
-                    HomeTeam = f.Random.ListItem(teams).Id,
-                    AwayTeam = f.Random.ListItem(teams).Id
+                    HomeTeamNavigation = homeTeam,
+                    AwayTeamNavigation = awayTeam
                 };
-            })
-            .Generate(10)
-            .ToList();
-            SaveChanges();
+                var players = g.HomeTeamNavigation.TeamPlayers.Concat(g.AwayTeamNavigation.TeamPlayers).ToList();
 
-            var goals = new Faker<Goal>("de").CustomInstantiator(f =>
-            {
-                int game = f.Random.ListItem(games).Id;
-                return new Goal()
+                var goals = new Faker<Goal>("de").CustomInstantiator(f =>
                 {
-                    Minute = f.Random.Int(0, 90),
-                    GameId = game,
-                    TeamId = f.Random.ListItem(new List<int>() { game.HomeTeam.Id, game.AwayTeam.Id })
-                };
+                    return new Goal()
+                    {
+                        Minute = f.Random.Int(0, 90),
+                        Game = g,
+                        TeamPlayer = f.Random.ListItem(players)
+                    };
+                })
+                .Generate(f.Random.Int(0, 10))
+                .GroupBy(g=>g.Minute).Select(g=>g.First())
+                .ToList();
+                g.Goals = goals;
+                return g;
             })
-            .Generate(10)
+            .Generate(1000)
             .ToList();
+            Games.AddRange(games);
             SaveChanges();
+            Console.WriteLine("Created games");
+
+
+            Console.WriteLine("Finished Seed");
         }
     }
 }

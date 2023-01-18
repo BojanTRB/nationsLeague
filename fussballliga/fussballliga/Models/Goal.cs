@@ -14,7 +14,7 @@ namespace fussballliga.Models
         public int Minute { get; set; }
         [Key]
         public int GameId { get; set; }
-        public int? TeamPlayerId { get; set; }
+        public int TeamPlayerId { get; set; }
 
         [ForeignKey("GameId")]
         [InverseProperty("Goals")]
