@@ -1,4 +1,4 @@
-# Bundesliga
+# Nations League
 
 | Name            | Email         | 
 | -------------   |:-------------:| 
@@ -6,8 +6,8 @@
 | Marko Lukic     | luk22652@spengergasse.at |   
 
 
-### Problemstellung:
+### Problem:
 
-> Wir erstellen ein Datenmodell für eine Fußball-Liga. Dieser sollte einen guten Überblick über die Liga bieten sollen.
+> We created a data model for a football league. This should provide a good overview of the league.
 
 ![image](https://user-images.githubusercontent.com/97803096/212013258-64bca983-4b44-440b-9ef4-31f8b2e1c444.png)
