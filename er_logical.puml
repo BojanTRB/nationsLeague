@@ -1,0 +1,75 @@
+entity League{
+    * Id <<PK>>
+    --
+    * Name
+    * CreatedOn
+}
+
+entity Team{
+    * Id <<PK>>
+    --
+    * Name
+    LeagueId <<FK>>
+}
+
+entity Player{
+    * Id <<PK>>
+    --
+    * Name
+    * BirthDate
+    Nation
+}
+
+entity TeamTrainer{
+    * Id <<generated>>
+    ---
+    * TrainerFrom
+    TrainerTo
+    TrainerId <<FK>>
+    TeamId <<FK>>
+    
+}
+
+entity Goals{
+    * Minutue <<PK>>
+    * GameId <<FK>>
+    --
+    * TeamPlayerId <<FK>>
+}
+
+entity TeamPlayer{
+    * Id <<generated>>
+    ---
+    * PlayerFrom
+    PlayerTo
+    PlayerId <<FK>>
+    TeamId <<FK>>
+    
+}
+
+entity Trainer{
+    * Id <<PK>> 
+    --
+    * Name 
+    * BirthDate 
+    Nation
+}
+
+entity Game {
+    * Id <<PK>> 
+    --
+    * GameDate
+    GameDay
+    HomeTeam <<FK>>
+    AwayTeam <<FK>>
+    
+}
+League ||--o{ Team
+Team ||--o{ TeamTrainer
+Team ||--o{ TeamPlayer
+Team ||--o{ Game
+Team ||--o{ Game
+Player ||--o{ TeamPlayer
+Trainer ||--o{ TeamTrainer
+Game ||--o{ Goals
+TeamPlayer ||--o{ Goals
