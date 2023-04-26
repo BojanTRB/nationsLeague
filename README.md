@@ -10,7 +10,8 @@
 
 ## Thema des Datenmodelles
 
-Das Datenmodell beschreibt ein Online-Shop-System, das die Bestellung von Produkten durch Kunden ermöglicht. Es umfasst die Verwaltung von Produkten, Kategorien, Bestellungen, Kundeninformationen und Zahlungen.
+> This is a data model for a football league. This should provide a good overview of soccer leagues like the German Bundesliga, Premier League.
+
 
 ## ER Modell (gerendert)
 
