@@ -17,17 +17,13 @@
 
 ### Logisches Modell
 
-```
-Kopiere den Sourcecode auf https://www.plantuml.com/plantuml und rufe über den SVG Link die URL der SVG Grafik ab.
-Bette danach das Bild mit ![](<URL>) ein.
-```
+
+![Logical](http://www.plantuml.com/plantuml/svg/fLDDQy904BtdL-onBKHwwQM8cFfDMoiIUXzqi85i5jOD9MZ_UtSoQrtScDgQW-1xy-RDljdjRmreKyfSRDLgXJf7s9GOHLYOp5JYfVwxYuJzxiHiBHx5R9wE9gEbw7ONpxrUpSHnx2hc8D7Ml2VBmJHPtZpStpfYe14ChjyAomwJT1Hz_NYa2F9tXtO3dlD4FIRrqMUHGuNwEYSYdZ9jFePWy70KWkTWCbL0RetQfw3JfXgoukme6xGSXHMawtHZhQJlxU1KDO0Dmp2D8CznthGJ1VdsCEThLfIcn30tfYSWWmq4gP8lBw8rfcFTtrCYMHWIewaAi6iZQbycvIEklrYNt2pANrm-1fMVcZ5M7QKrEbKIAOp0d3icdr0ntPwK_qR4Fv-XeBXiI_lnanVxVQUZTlMo8lhn0RUQ0AUzdy1qyX3WmYOfTsuo8w75urZj-Fb4hFCxCUxduGZNle_5kfJvDm00)
+
 
 ### Physisches Modell
 
-```
-Kopiere den Sourcecode auf https://www.plantuml.com/plantuml und rufe über den SVG Link die URL der SVG Grafik ab.
-Bette danach das Bild mit ![](<URL>) ein.
-```
+![Physical](http://www.plantuml.com/plantuml/svg/lLHDQy904BtdLyofs4942wMqI32DyGFRr4hiVT751f8i91jAqFxtxfYn2Tb8hKelWRpvcFVU3jDF9Kja5eMGYkMI9o5dwumR1ezb87Dutlrk30206vYiu14cdk-Et3dqUhEfPUqYfcbIXiSYhdBUxRapjkUjkyur1Po4CybNhx6A3cpVfJfOYZYL2GjYcG9rMNYJjuKBBUnLb3jZrvb2g-nXGVU-etf__H3rEOlEfKbgQ-L3LOx1encNf6OXotbo0VUUWaH-39JugdiUau68MQWcDL1kfbkrisogx7oWOSrQo60V-nmKjEOgXW-awQAwOIAYgW22VT407bA4D0x5Acn7WeKfyIn-VdV_9OWpcV4oRL_EegQTe2WIAjxvf4V0eRiNwC0Lq4yFkhVQSkEC4wp7CirvGdsXOsVwhcs8PZfSOEV_RUdnwU4FOZ2_HfcmlBPMOn5nz5IJKBIqFrcEuHCKxkTPGE9AFTMJ0UUTfUDleL5SLTXksssn0LHbuASAqDfeEEva3KPvEb0aDfHIvwPXMAXmqnIRuaGOPHtb4rwrZGBKtkZpU9L5uJS0)
 
 ### Rohdateien
 
