@@ -1,69 +1,94 @@
+@startuml soccerleague
+
 entity League{
-    * Id <<PK>>
-    --
-    * Name
-    * CreatedOn
+    * Id : INTEGER <<PK>>
+    ---
+    * Name : VARCHAR(50)
+    * CreatedOn : DATE
 }
 
 entity Team{
-    * Id <<PK>>
+    * Id : INTEGER <<PK>>
     --
-    * Name
-    LeagueId <<FK>>
+    * Name : VARCHAR(50)
+    LeagueId : INTEGER <<FK>>
 }
 
 entity Player{
-    * Id <<PK>>
+    * Id : INTEGER <<PK>>
     --
-    * Name
-    * BirthDate
-    Nation
+    * Name : VARCHAR(50)
+    * BirthDate : DATE
+    NationalityId : INTEGER <<FK>>
 }
 
 entity TeamTrainer{
-    * Id <<generated>>
+    * Id : INTEGER <<generated>>
     ---
-    * TrainerFrom
-    TrainerTo
-    TrainerId <<FK>>
-    TeamId <<FK>>
+    * TrainerFrom : DATE
+    TrainerTo : DATE
+    TrainerId : INTEGER <<FK>>
+    TeamId : INTEGER <<FK>>
     
 }
 
 entity Goals{
-    * Minutue <<PK>>
-    * GameId <<FK>>
+    * Minutue : INTEGER <<PK>>
+    * GameId : INTEGER <<FK>>
     --
-    * TeamPlayerId <<FK>>
+    * TeamPlayerId : INTEGER <<FK>>
 }
 
 entity TeamPlayer{
-    * Id <<generated>>
+    * Id : INTEGER <<generated>>
     ---
-    * PlayerFrom
-    PlayerTo
-    PlayerId <<FK>>
-    TeamId <<FK>>
+    * PlayerFrom : DATE
+    PlayerTo : DATE
+    PlayerId : INTEGER <<FK>>
+    TeamId : INTEGER <<FK>>
     
 }
 
 entity Trainer{
-    * Id <<PK>> 
+    * Id : INTEGER <<PK>> 
     --
-    * Name 
-    * BirthDate 
-    Nation
+    * Name : VARCHAR(50)
+    * BirthDate : DATE
+    NationnalityId : INTEGER <<FK>>
 }
 
 entity Game {
-    * Id <<PK>> 
+    * Id : INTEGER <<PK>> 
     --
-    * GameDate
-    GameDay
-    HomeTeam <<FK>>
-    AwayTeam <<FK>>
+    * GameDate : DATE
+    GameDay : INTEGER
+    HomeTeam : INTEGER <<FK>> 
+    AwayTeam : INTEGER <<FK>>
     
 }
+
+entity Nationality {
+    * Id : INTEGER <<PK>>
+    --
+    * Name : ENUM
+}
+
+Nationality --> Player: NationalityId
+
+enum Nationalities {
+  Germany
+  France
+  Spain
+  Italy
+  England
+  USA
+  Canada
+  Brazil
+  Argentina
+}
+
+Nationalities --> Nationality: Nationalities
+
 League ||--o{ Team
 Team ||--o{ TeamTrainer
 Team ||--o{ TeamPlayer
@@ -73,3 +98,5 @@ Player ||--o{ TeamPlayer
 Trainer ||--o{ TeamTrainer
 Game ||--o{ Goals
 TeamPlayer ||--o{ Goals
+
+@enduml
