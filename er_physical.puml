@@ -1,0 +1,118 @@
+@startuml soccerleague
+
+entity League{
+    * Id : INTEGER <<PK>>
+    ---
+    * Name : VARCHAR(50)
+    * CreatedOn : DATE
+    -- constraints --
+    UNIQUE (Name)
+    CHECK (CreatedOn > 1700)
+}
+
+entity Team{
+    * Id : INTEGER <<PK>>
+    ---
+    * Name : VARCHAR(50)
+    LeagueId : INTEGER <<FK>>    
+    -- constraints --
+    UNIQUE (Name)
+}
+
+entity Player{
+    * Id : INTEGER <<PK>>
+    ---
+    * Name : VARCHAR(50)
+    * BirthDate : DATE
+    NationalityId : INTEGER <<FK>>
+    -- constraints --
+    CHECK (BirthDate > 1950)
+    UNIQUE (Name)
+}
+
+entity TeamTrainer{
+    * Id : INTEGER <<generated>>
+    ---
+    * TrainerFrom : DATE
+    TrainerTo : DATE
+    TrainerId : INTEGER <<FK>>
+    TeamId : INTEGER <<FK>>
+    
+}
+
+entity Goals{
+    * GoalsId : INTEGER <<PK>>
+    ---
+    * Minutue : INTEGER
+    * GameId : INTEGER <<FK>>
+    * TeamPlayerId : INTEGER <<FK>>
+    -- constraints --
+    CHECK (Minute > 0 & Minute < 120)
+}
+
+entity TeamPlayer{
+    * Id : INTEGER <<generated>>
+    ---
+    * PlayerFrom : DATE
+    PlayerTo : DATE
+    PlayerId : INTEGER <<FK>>
+    TeamId : INTEGER <<FK>>
+    
+}
+
+entity Trainer{
+    * Id : INTEGER <<PK>> 
+    ---
+    * Name : VARCHAR(50)
+    * BirthDate : DATE
+    NationnalityId : INTEGER <<FK>>
+    -- constraints --
+    CHECK (BirthDate > 1950)
+    UNIQUE (Name)
+}
+
+entity Game {
+    * Id : INTEGER <<PK>> 
+    ---
+    * GameDate : DATE
+    GameDay : INTEGER
+    HomeTeam : INTEGER <<FK>> 
+    AwayTeam : INTEGER <<FK>>
+    -- constraints --
+    CHECK (GameDay > 0)
+    
+}
+
+entity Nationality {
+    * Id : INTEGER <<PK>>
+    ---
+    * Name : ENUM
+}
+
+
+enum Nationalities {
+  Germany
+  France
+  Spain
+  Italy
+  England
+  USA
+  Canada
+  Brazil
+  Argentina
+}
+
+Nationalities --> Nationality: Nationalities
+
+League ||..o{ Team
+Team ||..o{ TeamTrainer
+Team ||..o{ TeamPlayer
+Team ||..o{ Game
+Team ||..o{ Game
+Player ||..o{ TeamPlayer
+Trainer ||..o{ TeamTrainer
+Game ||--o{ Goals
+TeamPlayer ||..o{ Goals
+Nationality ||..o{ Player
+
+@enduml
