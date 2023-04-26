@@ -86,23 +86,11 @@ entity Game {
 entity Nationality {
     * Id : INTEGER <<PK>>
     ---
-    * Name : ENUM
+    * Name : VARCHAR(50)
+    -- constraints --
+    UNIQUE (Name)
 }
 
-
-enum Nationalities {
-  Germany
-  France
-  Spain
-  Italy
-  England
-  USA
-  Canada
-  Brazil
-  Argentina
-}
-
-Nationalities --> Nationality: Nationalities
 
 League ||..o{ Team
 Team ||..o{ TeamTrainer
