@@ -1,3 +1,4 @@
+Create database SoccerLeague;
 USE tempdb;
 GO    
 BEGIN
@@ -10,7 +11,7 @@ BEGIN
         EXEC('CREATE DATABASE ' + @DBNAME);    
     END;
 END;
-USE <SoccerLeague>;   -- Change to your database name (USE does not allow variables)
+USE SoccerLeague;   -- Change to your database name (USE does not allow variables)
 GO
 
 DROP TABLE IF EXISTS Goals;
@@ -92,9 +93,7 @@ CREATE TABLE Goals (
 	[Minute] INTEGER NOT NULL,
 	GameId INTEGER NOT NULL,
 	TeamPlayerId INTEGER NOT NULL,
-	PRIMARY KEY (Id),
 	FOREIGN KEY (GameId) REFERENCES Game(Id),
-	FOREIGN KEY (TeamPlayerId) REFERENCES TeamPlayer(Id)
-	CHECK (Minute > 0 & Minute < 120)
+	FOREIGN KEY (TeamPlayerId) REFERENCES TeamPlayer(Id),
+	CONSTRAINT GoalInGame CHECK ([Minute] > 0 and [Minute] < 120)
 );
-
