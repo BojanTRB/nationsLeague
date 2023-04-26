@@ -73,7 +73,6 @@ entity Nationality {
     * Name : ENUM
 }
 
-Nationality --> Player: NationalityId
 
 enum Nationalities {
   Germany
@@ -89,14 +88,14 @@ enum Nationalities {
 
 Nationalities --> Nationality: Nationalities
 
-League ||--o{ Team
-Team ||--o{ TeamTrainer
-Team ||--o{ TeamPlayer
-Team ||--o{ Game
-Team ||--o{ Game
-Player ||--o{ TeamPlayer
-Trainer ||--o{ TeamTrainer
+League ||..o{ Team
+Team ||..o{ TeamTrainer
+Team ||..o{ TeamPlayer
+Team ||..o{ Game
+Team ||..o{ Game
+Player ||..o{ TeamPlayer
+Trainer ||..o{ TeamTrainer
 Game ||--o{ Goals
-TeamPlayer ||--o{ Goals
-
+TeamPlayer ||..o{ Goals
+Nationality ||..o{ Player
 @enduml
