@@ -2,7 +2,7 @@ Create database SoccerLeague;
 USE tempdb;
 GO    
 BEGIN
-    DECLARE @DBNAME AS VARCHAR(MAX) = '<SoccerLeague>'
+    DECLARE @DBNAME AS VARCHAR(MAX) = 'SoccerLeague'
     IF EXISTS(SELECT * FROM sys.databases WHERE Name = @DBNAME)
     BEGIN
         -- Disconnect all users and recreate database.
