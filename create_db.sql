@@ -39,30 +39,38 @@ CREATE TABLE Team (
 	FOREIGN KEY (LeagueId) REFERENCES League(Id)
 );
 
+CREATE TABLE Nationality (
+	Id INTEGER IDENTITY(1,1 ) PRIMARY KEY,
+	[Name] VARCHAR(50) NOT NULL,
+	UNIQUE([Name])
+)
+
 CREATE TABLE Trainer (
 	Id INTEGER IDENTITY(1,1) PRIMARY KEY,
-	[Name] VARCHAR(200) NOT NULL,
+	Firstname VARCHAR(50) NOT NULL,
+	Lastname VARCHAR(50) NOT NULL,
 	BirthDate DATE NOT NULL,
-	Nation VARCHAR(200),
-	CHECK (Year(BirthDate) > 1950),
-	UNIQUE (Name)
+	NationalityId INTEGER,
+	FOREIGN KEY (NationalityId) REFERENCES (Nationality.Id),
+	CHECK (Year(BirthDate) > 1950)
 );
 
 CREATE TABLE Player (
 	Id INTEGER IDENTITY(1,1) PRIMARY KEY,
-	[Name] VARCHAR(200) NOT NULL,
+	Firstname VARCHAR(50) NOT NULL,
+	Lastname VARCHAR(50) NOT NULL,
 	BirthDate DATE NOT NULL,
-	Nation VARCHAR(200),
-	CHECK (Year(BirthDate) > 1950),
-	UNIQUE (Name)
+	NationalityId INTEGER,
+	FOREIGN KEY (NationalityId) REFERENCES (Nationality.Id),
+	CHECK (Year(BirthDate) > 1950)
 );
 
 CREATE TABLE TeamTrainer (
 	Id INTEGER IDENTITY(1,1) PRIMARY KEY,
 	TrainerFrom DATE NOT NULL,
 	TrainerTo DATE,
-	TrainerId INTEGER,
-	TeamId INTEGER,
+	TrainerId INTEGER NO NULL,
+	TeamId INTEGER NOT NULL,
 	FOREIGN KEY (TrainerId) REFERENCES Trainer(Id),
 	FOREIGN KEY (TeamId) REFERENCES Team(Id)
 );
@@ -97,3 +105,4 @@ CREATE TABLE Goals (
 	FOREIGN KEY (TeamPlayerId) REFERENCES TeamPlayer(Id),
 	CONSTRAINT GoalInGame CHECK ([Minute] > 0 and [Minute] < 120)
 );
+

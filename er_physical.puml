@@ -22,12 +22,12 @@ entity Team{
 entity Player{
     * Id : INTEGER <<PK>>
     ---
-    * Name : VARCHAR(50)
+    * Firstname : VARCHAR(50)
+    * Lastname : VARCHAR(50)
     * BirthDate : DATE
     NationalityId : INTEGER <<FK>>
     -- constraints --
     CHECK (BirthDate > 1950)
-    UNIQUE (Name)
 }
 
 entity TeamTrainer{
@@ -35,15 +35,15 @@ entity TeamTrainer{
     ---
     * TrainerFrom : DATE
     TrainerTo : DATE
-    TrainerId : INTEGER <<FK>>
-    TeamId : INTEGER <<FK>>
+    * TrainerId : INTEGER <<FK>>
+    * TeamId : INTEGER <<FK>>
     
 }
 
 entity Goals{
     * GoalsId : INTEGER <<PK>>
     ---
-    * Minutue : INTEGER
+    * Minute : INTEGER
     * GameId : INTEGER <<FK>>
     * TeamPlayerId : INTEGER <<FK>>
     -- constraints --
@@ -55,20 +55,20 @@ entity TeamPlayer{
     ---
     * PlayerFrom : DATE
     PlayerTo : DATE
-    PlayerId : INTEGER <<FK>>
-    TeamId : INTEGER <<FK>>
+    * PlayerId : INTEGER <<FK>>
+    * TeamId : INTEGER <<FK>>
     
 }
 
 entity Trainer{
-    * Id : INTEGER <<PK>> 
+    * Id : INTEGER <<generated>>
     ---
-    * Name : VARCHAR(50)
+    * Firstname : VARCHAR(50)
+    * Lastname : VARCHAR(50)
     * BirthDate : DATE
     NationnalityId : INTEGER <<FK>>
     -- constraints --
     CHECK (BirthDate > 1950)
-    UNIQUE (Name)
 }
 
 entity Game {
@@ -102,5 +102,6 @@ Trainer ||..o{ TeamTrainer
 Game ||--o{ Goals
 TeamPlayer ||..o{ Goals
 Nationality ||..o{ Player
+Nationality ||..o{ Trainer
 
 @enduml
