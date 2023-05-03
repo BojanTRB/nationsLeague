@@ -1,4 +1,3 @@
-Create database SoccerLeague;
 USE tempdb;
 GO    
 BEGIN
@@ -8,8 +7,8 @@ BEGIN
         -- Disconnect all users and recreate database.
         EXEC('ALTER DATABASE ' + @DBNAME + ' SET SINGLE_USER WITH ROLLBACK IMMEDIATE');
         EXEC('DROP DATABASE ' + @DBNAME);
-        EXEC('CREATE DATABASE ' + @DBNAME);    
     END;
+        EXEC('CREATE DATABASE ' + @DBNAME);    
 END;
 USE SoccerLeague;   -- Change to your database name (USE does not allow variables)
 GO
@@ -40,7 +39,7 @@ CREATE TABLE Team (
 );
 
 CREATE TABLE Nationality (
-	Id INTEGER IDENTITY(1,1 ) PRIMARY KEY,
+	Id INTEGER IDENTITY(1,1) PRIMARY KEY,
 	[Name] VARCHAR(50) NOT NULL,
 	UNIQUE([Name])
 )
@@ -51,7 +50,7 @@ CREATE TABLE Trainer (
 	Lastname VARCHAR(50) NOT NULL,
 	BirthDate DATE NOT NULL,
 	NationalityId INTEGER,
-	FOREIGN KEY (NationalityId) REFERENCES (Nationality.Id),
+	FOREIGN KEY (NationalityId) REFERENCES Nationality(Id),
 	CHECK (Year(BirthDate) > 1950)
 );
 
@@ -61,7 +60,7 @@ CREATE TABLE Player (
 	Lastname VARCHAR(50) NOT NULL,
 	BirthDate DATE NOT NULL,
 	NationalityId INTEGER,
-	FOREIGN KEY (NationalityId) REFERENCES (Nationality.Id),
+	FOREIGN KEY (NationalityId) REFERENCES Nationality(Id),
 	CHECK (Year(BirthDate) > 1950)
 );
 
@@ -69,7 +68,7 @@ CREATE TABLE TeamTrainer (
 	Id INTEGER IDENTITY(1,1) PRIMARY KEY,
 	TrainerFrom DATE NOT NULL,
 	TrainerTo DATE,
-	TrainerId INTEGER NO NULL,
+	TrainerId INTEGER NOT NULL,
 	TeamId INTEGER NOT NULL,
 	FOREIGN KEY (TrainerId) REFERENCES Trainer(Id),
 	FOREIGN KEY (TeamId) REFERENCES Team(Id)
