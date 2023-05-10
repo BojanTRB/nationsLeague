@@ -1,0 +1,91 @@
+@startuml soccerleague
+
+entity League{
+    * Id : INTEGER <<PK>>
+    ---
+    * Name : VARCHAR(50)
+    * CreatedOn : DATE
+}
+
+entity Team{
+    * Id : INTEGER <<PK>>
+    --
+    * Name : VARCHAR(50)
+    LeagueId : INTEGER <<FK>>
+}
+
+entity Player{
+    * Id : INTEGER <<PK>>
+    --
+    * Firstname : VARCHAR(50)
+    * Lastname : VARCHAR(50)
+    * BirthDate : DATE
+    NationalityId : INTEGER <<FK>>
+}
+
+entity TeamTrainer{
+    * Id : INTEGER <<generated>>
+    ---
+    * TrainerFrom : DATE
+    TrainerTo : DATE
+    * TrainerId : INTEGER <<FK>>
+    * TeamId : INTEGER <<FK>>
+    
+}
+
+entity Goals{
+    * Minute : INTEGER <<PK>>
+    * GameId : INTEGER <<FK>>
+    --
+    * TeamPlayerId : INTEGER <<FK>>
+}
+
+entity TeamPlayer{
+    * Id : INTEGER <<generated>>
+    ---
+    * PlayerFrom : DATE
+    PlayerTo : DATE
+    * PlayerId : INTEGER <<FK>>
+    * TeamId : INTEGER <<FK>>
+    
+}
+
+entity Trainer{
+    * Id : INTEGER <<PK>> 
+    --
+    * Firstname : VARCHAR(50)
+    * Lastname : VARCHAR(50)
+    * BirthDate : DATE
+    NationnalityId : INTEGER <<FK>>
+}
+
+entity Game {
+    * Id : INTEGER <<PK>> 
+    --
+    * GameDate : DATE
+    GameDay : INTEGER
+    * HomeTeam : INTEGER <<FK>> 
+    * AwayTeam : INTEGER <<FK>>
+    
+}
+
+entity Nationality {
+    * Id : INTEGER <<PK>>
+    --
+    * Name : VARCHAR (50)
+}
+
+
+
+League ||..o{ Team
+Team ||..o{ TeamTrainer
+Team ||..o{ TeamPlayer
+Team ||..o{ Game
+Team ||..o{ Game
+Player ||..o{ TeamPlayer
+Trainer ||..o{ TeamTrainer
+Game ||--o{ Goals
+TeamPlayer ||..o{ Goals
+Nationality ||..o{ Player
+Nationality ||..o{ Trainer
+@enduml
