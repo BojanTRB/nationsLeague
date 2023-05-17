@@ -1,59 +1,74 @@
-USE master
-GO
--- Prevent 'database is in use' error when deleting.
-IF EXISTS (SELECT 1 FROM sys.databases WHERE [name] = N'SoccerLeague')
+USE tempdb;
+GO    
 BEGIN
-    ALTER DATABASE SoccerLeague SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-    DROP DATABASE SoccerLeague;
+    DECLARE @DBNAME AS VARCHAR(MAX) = 'SoccerLeague'
+    IF EXISTS(SELECT * FROM sys.databases WHERE Name = @DBNAME)
+    BEGIN
+        -- Disconnect all users and recreate database.
+        EXEC('ALTER DATABASE ' + @DBNAME + ' SET SINGLE_USER WITH ROLLBACK IMMEDIATE');
+        EXEC('DROP DATABASE ' + @DBNAME);
+    END;
+        EXEC('CREATE DATABASE ' + @DBNAME);    
 END;
-GO
-CREATE DATABASE SoccerLeague
-GO
-USE SoccerLeague
+USE SoccerLeague;   -- Change to your database name (USE does not allow variables)
 GO
 
-DROP TABLE IF EXISTS Goals;
-DROP TABLE IF EXISTS TeamPlayer;
-DROP TABLE IF EXISTS Game;
-DROP TABLE IF EXISTS TeamTrainer;
-DROP TABLE IF EXISTS Player;
-DROP TABLE IF EXISTS Team;
-DROP TABLE IF EXISTS Trainer;
-DROP TABLE IF EXISTS League;
 
-CREATE TABLE League (
+CREATE TABLE Nationality (
+	Id INTEGER IDENTITY(1,1) PRIMARY KEY,
+	[Name] VARCHAR(50) NOT NULL,
+	UNIQUE([Name])
+)
+
+CREATE TABLE Nationsleague (
 	Id INTEGER IDENTITY(1,1) PRIMARY KEY,
 	[Name] VARCHAR(200) NOT NULL,
 	CreatedOn DATE NOT NULL,
+	NationalityId INTEGER NOT NULL,
+	LeagueID INTEGER NOT NULL,
+	FOREIGN KEY (NationalityId) REFERENCES Nationality(Id),
+	FOREIGN KEY (LeagueID) REFERENCES Nationsleague(Id),
+	UNIQUE (Name),
+	CHECK (YEAR(CreatedOn) > 1700)
+
+
 );
 
 CREATE TABLE Team (
 	Id INTEGER IDENTITY(1,1) PRIMARY KEY,
 	[Name] VARCHAR(200) NOT NULL UNIQUE,
-	LeagueId INTEGER,
-	FOREIGN KEY (LeagueId) REFERENCES League(Id)
+	NationsleagueID INTEGER,
+	UNIQUE (Name),
+	FOREIGN KEY (NationsleagueID) REFERENCES Nationsleague(Id)
 );
+
 
 CREATE TABLE Trainer (
 	Id INTEGER IDENTITY(1,1) PRIMARY KEY,
-	[Name] VARCHAR(200) NOT NULL,
+	Firstname VARCHAR(50) NOT NULL,
+	Lastname VARCHAR(50) NOT NULL,
 	BirthDate DATE NOT NULL,
-	Nation VARCHAR(200)
+	NationalityId INTEGER,
+	FOREIGN KEY (NationalityId) REFERENCES Nationality(Id),
+	CHECK (Year(BirthDate) > 1950)
 );
 
 CREATE TABLE Player (
 	Id INTEGER IDENTITY(1,1) PRIMARY KEY,
-	[Name] VARCHAR(200) NOT NULL,
+	Firstname VARCHAR(50) NOT NULL,
+	Lastname VARCHAR(50) NOT NULL,
 	BirthDate DATE NOT NULL,
-	Nation VARCHAR(200)
+	NationalityId INTEGER,
+	FOREIGN KEY (NationalityId) REFERENCES Nationality(Id),
+	CHECK (Year(BirthDate) > 1950)
 );
 
 CREATE TABLE TeamTrainer (
 	Id INTEGER IDENTITY(1,1) PRIMARY KEY,
 	TrainerFrom DATE NOT NULL,
 	TrainerTo DATE,
-	TrainerId INTEGER,
-	TeamId INTEGER,
+	TrainerId INTEGER NOT NULL,
+	TeamId INTEGER NOT NULL,
 	FOREIGN KEY (TrainerId) REFERENCES Trainer(Id),
 	FOREIGN KEY (TeamId) REFERENCES Team(Id)
 );
@@ -64,6 +79,7 @@ CREATE TABLE Game (
 	GameDate DATE NOT NULL,
 	HomeTeam INTEGER NOT NULL,
 	AwayTeam INTEGER NOT NULL,
+	CHECK (GameDay > 0),
 	FOREIGN KEY (HomeTeam) REFERENCES Team(Id),
 	FOREIGN KEY (AwayTeam) REFERENCES Team(Id)
 );
@@ -79,11 +95,12 @@ CREATE TABLE TeamPlayer (
 );
 
 CREATE TABLE Goals (
+	Id INTEGER IDENTITY(1,1) PRIMARY KEY,
 	[Minute] INTEGER NOT NULL,
 	GameId INTEGER NOT NULL,
 	TeamPlayerId INTEGER NOT NULL,
-	PRIMARY KEY ([Minute], GameId),
 	FOREIGN KEY (GameId) REFERENCES Game(Id),
-	FOREIGN KEY (TeamPlayerId) REFERENCES TeamPlayer(Id)
+	FOREIGN KEY (TeamPlayerId) REFERENCES TeamPlayer(Id),
+	CONSTRAINT GoalInGame CHECK ([Minute] > 0 and [Minute] < 120)
 );
 

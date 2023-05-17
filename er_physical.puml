@@ -1,0 +1,112 @@
+@startuml soccerleague
+
+entity Nationsleague{
+    * Id : INTEGER <<PK>>
+    ---
+    * Name : VARCHAR(50)
+    * CreatedOn : DATE
+    * NationalityId : INTEGER <<FK>>
+    * LeagueId : INTEGER <<FK>>
+    -- constraints --
+    UNIQUE (Name)
+    CHECK (CreatedOn > 1700)
+}
+
+entity Team{
+    * Id : INTEGER <<PK>>
+    ---
+    * Name : VARCHAR(50)
+    LeagueId : INTEGER <<FK>>    
+    -- constraints --
+    UNIQUE (Name)
+}
+
+entity Player{
+    * Id : INTEGER <<PK>>
+    ---
+    * Firstname : VARCHAR(50)
+    * Lastname : VARCHAR(50)
+    * BirthDate : DATE
+    NationalityId : INTEGER <<FK>>
+    -- constraints --
+    CHECK (Year(BirthDate) > 1950)
+}
+
+entity TeamTrainer{
+    * Id : INTEGER <<generated>>
+    ---
+    * TrainerFrom : DATE
+    TrainerTo : DATE
+    * TrainerId : INTEGER <<FK>>
+    * TeamId : INTEGER <<FK>>
+    
+}
+
+entity Goals{
+    * GoalsId : INTEGER <<PK>>
+    ---
+    * Minute : INTEGER
+    * GameId : INTEGER <<FK>>
+    * TeamPlayerId : INTEGER <<FK>>
+    -- constraints --
+    CHECK (Minute > 0 & Minute < 120)
+}
+
+entity TeamPlayer{
+    * Id : INTEGER <<generated>>
+    ---
+    * PlayerFrom : DATE
+    PlayerTo : DATE
+    * PlayerId : INTEGER <<FK>>
+    * TeamId : INTEGER <<FK>>
+    
+}
+
+entity Trainer{
+    * Id : INTEGER <<generated>>
+    ---
+    * Firstname : VARCHAR(50)
+    * Lastname : VARCHAR(50)
+    * BirthDate : DATE
+    NationalityId : INTEGER <<FK>>
+    -- constraints --
+    CHECK (Year(BirthDate) > 1950)
+}
+
+entity Game { 
+    * Id : INTEGER <<PK>> 
+    ---
+    * GameDate : DATE
+    GameDay : INTEGER
+    * HomeTeam : INTEGER <<FK>> 
+    * AwayTeam : INTEGER <<FK>>
+    -- constraints --
+    CHECK (GameDay > 0)
+    
+}
+
+entity Nationality {
+    * Id : INTEGER <<PK>>
+    ---
+    * Name : VARCHAR(50)
+    -- constraints --
+    UNIQUE (Name)
+}
+
+
+Nationsleague ||..o{ Team
+Team ||..o{ TeamTrainer
+Team ||..o{ TeamPlayer
+Team ||..o{ Game
+Team ||..o{ Game
+Player ||..o{ TeamPlayer
+Trainer ||..o{ TeamTrainer
+Game ||--o{ Goals
+TeamPlayer ||..o{ Goals
+Nationality ||.o{ Player
+Nationality ||..o{ Trainer
+Nationality ||..o{ Nationsleague
+Nationsleague ||..o{ Nationsleague
+
+
+@enduml
