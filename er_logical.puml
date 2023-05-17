@@ -1,10 +1,12 @@
 @startuml soccerleague
 
-entity League{
+entity Nationsleague{
     * Id : INTEGER <<PK>>
     ---
     * Name : VARCHAR(50)
     * CreatedOn : DATE
+    * NationalityId : INTEGER <<FK>>
+    * LeagueId : INTEGER <<FK>>
 }
 
 entity Team{
@@ -56,7 +58,7 @@ entity Trainer{
     * Firstname : VARCHAR(50)
     * Lastname : VARCHAR(50)
     * BirthDate : DATE
-    NationnalityId : INTEGER <<FK>>
+    NationalityId : INTEGER <<FK>>
 }
 
 entity Game {
@@ -77,7 +79,7 @@ entity Nationality {
 
 
 
-League ||..o{ Team
+Nationsleague ||..o{ Team
 Team ||..o{ TeamTrainer
 Team ||..o{ TeamPlayer
 Team ||..o{ Game
@@ -86,6 +88,9 @@ Player ||..o{ TeamPlayer
 Trainer ||..o{ TeamTrainer
 Game ||--o{ Goals
 TeamPlayer ||..o{ Goals
-Nationality ||..o{ Player
+Nationality ||.o{ Player
 Nationality ||..o{ Trainer
+Nationality ||..o{ Nationsleague
+Nationsleague ||..o{ Nationsleague
+
 @enduml
