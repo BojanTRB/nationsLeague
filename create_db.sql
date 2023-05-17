@@ -101,6 +101,19 @@ CREATE TABLE Goals (
 	CONSTRAINT GoalInGame CHECK ([Minute] > 0 and [Minute] < 120)
 );
 
+GO
+CREATE VIEW GameView AS
+SELECT
+    g.Id,
+    g.HomeTeam,
+    g.AwayTeam,
+    JSON_VALUE(g.Value, '$.gameday') AS GameDay,
+    JSON_VALUE(g.Value, '$.gamedate') AS GameDate
+FROM
+    Game g;
+GO
+
+
 INSERT INTO Nationality ([Name]) VALUES ('Germany');
 INSERT INTO Nationality ([Name]) VALUES ('France');
 INSERT INTO Nationality ([Name]) VALUES ('Spain');
@@ -184,3 +197,4 @@ WITH (
     GameDate DATE '$.gamedate'
 );
 
+select * from GameView;
