@@ -183,13 +183,6 @@ INSERT INTO Game VALUES (7, 9, '{"gameday": 4, "gamedate": "2023-05-14"}');
 INSERT INTO Game VALUES (10, 8, '{"gameday": 5, "gamedate": "2023-05-15"}');
 INSERT INTO Game VALUES (11, 12, '{"gameday": 6, "gamedate": "2023-05-16"}');
 
-
-SELECT
-    g.Id, g.HomeTeam, g.AwayTeam,
-    JSON_VALUE(g.Value, '$.gameday') AS GameDay,
-    JSON_VALUE(g.Value, '$.gamedate') AS GameDate
-FROM Game g;
-
 SELECT *
 FROM Game g CROSS APPLY OPENJSON (g.Value)
 WITH (
