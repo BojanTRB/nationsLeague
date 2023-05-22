@@ -107,8 +107,8 @@ SELECT
     g.Id,
     g.HomeTeam,
     g.AwayTeam,
-    JSON_VALUE(g.Value, '$.gameday') AS GameDay,
-    JSON_VALUE(g.Value, '$.gamedate') AS GameDate
+    JSON_VALUE(g.Value, '$.GameDay') AS GameDay,
+    JSON_VALUE(g.Value, '$.GameDate') AS GameDate
 FROM
     Game g;
 GO
@@ -179,15 +179,15 @@ INSERT INTO Team ([Name], NationsleagueID) VALUES ('Benfica', 7);
 INSERT INTO Game VALUES (3, 2, '{"GameDay": 1, "GameDate": "2023-05-11"}');
 INSERT INTO Game VALUES (1, 4, '{"GameDay": 2, "GameDate": "2023-05-12"}');
 INSERT INTO Game VALUES (6, 5, '{"GameDay": 3, "GameDate": "2023-05-13"}');
-INSERT INTO Game VALUES (7, 9, '{"GameDay": 4, "GamedDate": "2023-05-14"}');
+INSERT INTO Game VALUES (7, 9, '{"GameDay": 4, "GameDate": "2023-05-14"}');
 INSERT INTO Game VALUES (10, 8, '{"GameDay": 5, "GameDate": "2023-05-15"}');
 INSERT INTO Game VALUES (11, 12, '{"GameDay": 6, "GameDate": "2023-05-16"}');
 
 SELECT *
 FROM Game g CROSS APPLY OPENJSON (g.Value)
 WITH (
-    GameDay INTEGER '$.gameday',
-    GameDate DATE '$.gamedate'
+    GameDay INTEGER '$.GameDay',
+    GameDate DATE '$.GameDate'
 );
 
 select * from GameView;
