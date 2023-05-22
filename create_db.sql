@@ -176,12 +176,12 @@ INSERT INTO Team ([Name], NationsleagueID) VALUES ('PSV Eindhoven', 6);
 INSERT INTO Team ([Name], NationsleagueID) VALUES ('Benfica', 7);
 
 
-INSERT INTO Game VALUES (3, 2, '{"gameday": 1, "gamedate": "2023-05-11"}');
-INSERT INTO Game VALUES (1, 4, '{"gameday": 2, "gamedate": "2023-05-12"}');
-INSERT INTO Game VALUES (6, 5, '{"gameday": 3, "gamedate": "2023-05-13"}');
-INSERT INTO Game VALUES (7, 9, '{"gameday": 4, "gamedate": "2023-05-14"}');
-INSERT INTO Game VALUES (10, 8, '{"gameday": 5, "gamedate": "2023-05-15"}');
-INSERT INTO Game VALUES (11, 12, '{"gameday": 6, "gamedate": "2023-05-16"}');
+INSERT INTO Game VALUES (3, 2, '{"GameDay": 1, "GameDate": "2023-05-11"}');
+INSERT INTO Game VALUES (1, 4, '{"GameDay": 2, "GameDate": "2023-05-12"}');
+INSERT INTO Game VALUES (6, 5, '{"GameDay": 3, "GameDate": "2023-05-13"}');
+INSERT INTO Game VALUES (7, 9, '{"GameDay": 4, "GamedDate": "2023-05-14"}');
+INSERT INTO Game VALUES (10, 8, '{"GameDay": 5, "GameDate": "2023-05-15"}');
+INSERT INTO Game VALUES (11, 12, '{"GameDay": 6, "GameDate": "2023-05-16"}');
 
 SELECT *
 FROM Game g CROSS APPLY OPENJSON (g.Value)
