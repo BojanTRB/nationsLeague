@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Value",
+  "description": "Infos of the date of a soccer game",
+  "type": "object",
+  "properties": {
+    "Value": {
+      "description": "Infos to the game",
+    "type": "object",
+    "properties": {
+      "GameDay": {
+          "description": "Which gameday it is (counted)",
+          "type": "number",
+          "exclusiveMinimum": 1
+        },
+        "GameDate": {
+          "description": "The date of the game",
+          "type": "string",
+          "format": "date"
+        }
+    }
+  }
+  },
+  "required": ["GameDate"]
+}
+
