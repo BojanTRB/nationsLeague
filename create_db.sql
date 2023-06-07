@@ -25,9 +25,7 @@ CREATE TABLE Nationsleague (
 	[Name] VARCHAR(200) NOT NULL,
 	CreatedOn DATE NOT NULL,
 	NationalityId INTEGER NOT NULL,
-	LeagueID INTEGER NOT NULL,
 	FOREIGN KEY (NationalityId) REFERENCES Nationality(Id),
-	FOREIGN KEY (LeagueID) REFERENCES Nationsleague(Id),
 	UNIQUE (Name),
 	CHECK (YEAR(CreatedOn) > 1700)
 
