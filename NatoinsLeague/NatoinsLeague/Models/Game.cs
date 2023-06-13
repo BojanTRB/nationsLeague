@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using NationsLeague.Models.NationsLeague.Models;
 
 namespace NationsLeague.Models
 {
@@ -22,7 +23,18 @@ namespace NationsLeague.Models
         public int AwayTeam { get; set; }
         [Required]
         [Unicode(false)]
-        public string Value { get; set; }
+        public AdditionalAttribute AdditionalAttributes { get; set; }
+
+
+        public Game(int homeTeam, int awayTeam, AdditionalAttribute additionalAttribute, Team awayTeamNavigation, Team homeTeamNavigation, ICollection<Goal> goals)
+        {
+            HomeTeam = homeTeam;
+            AwayTeam = awayTeam;
+            AdditionalAttributes = additionalAttribute;
+            AwayTeamNavigation = awayTeamNavigation;
+            HomeTeamNavigation = homeTeamNavigation;
+            Goals = goals;
+        }
 
         [ForeignKey("AwayTeam")]
         [InverseProperty("GameAwayTeamNavigations")]

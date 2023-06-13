@@ -3,8 +3,10 @@
 using System;
 using System.Collections.Generic;
 using Bogus;
+using Bogus.Bson;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using NationsLeague.Models.NationsLeague.Models;
 
 namespace NationsLeague.Models
 {
@@ -16,6 +18,10 @@ namespace NationsLeague.Models
 
         public NationsLeagueContext(DbContextOptions<NationsLeagueContext> options)
             : base(options)
+        {
+        }
+
+        public NationsLeagueContext(DbContextOptions options) : base(options)
         {
         }
 
@@ -132,6 +138,14 @@ namespace NationsLeague.Models
                     .HasForeignKey(d => d.NationalityId)
                     .HasConstraintName("FK__Trainer__Nationa__31EC6D26");
             });
+
+            modelBuilder.Entity<Game>().OwnsOne(
+                game => game.AdditionalAttributes, ownedNavigationBuilder =>
+                {
+                    ownedNavigationBuilder.ToJson();
+                    ownedNavigationBuilder.OwnsOne(AdditionalAttributes => AdditionalAttributes.Value);
+                }
+                );
 
             modelBuilder.Entity<GameView>()
            .HasNoKey()
@@ -265,7 +279,10 @@ namespace NationsLeague.Models
 
                     HomeTeamNavigation = homeTeam,
                     AwayTeamNavigation = awayTeam,
-                    Value = System.Text.Json.JsonSerializer.Serialize(date),
+                    AdditionalAttributes = new AdditionalAttribute
+                    {
+                        Value = new Value(3, DateTime.Now)
+                    }
                 };
                 return g;
             })
