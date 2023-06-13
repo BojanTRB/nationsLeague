@@ -19,10 +19,6 @@ namespace NationsLeague.Models
         {
         }
 
-        public NationsLeagueContext(DbContextOptions options) : base(options)
-        {
-        }
-
         public virtual DbSet<Game> Games { get; set; }
         public virtual DbSet<GameView> GameViews { get; set; }
         public virtual DbSet<Goal> Goals { get; set; }
@@ -142,14 +138,6 @@ namespace NationsLeague.Models
            .ToView("VGAME");   // Oracle: uppercase
 
             OnModelCreatingPartial(modelBuilder);
-
-            modelBuilder.Entity<Game>().OwnsOne(
-                game => game.AdditionalAttributes, ownedNavigationBuilder =>
-                {
-                    ownedNavigationBuilder.ToJson();
-                    ownedNavigationBuilder.OwnsOne(AdditionalAttributes => AdditionalAttributes.Value);
-                }
-                );
         }
 
         public void Seed()
@@ -164,7 +152,7 @@ namespace NationsLeague.Models
                     Name = f.Address.Country(),
                 };
             })
-            .Generate(5)
+            .Generate(50)
             .GroupBy(n => n.Name).Select(g => g.First())
             .ToList();
             Nationalities.AddRange(nationalitys);
@@ -262,8 +250,6 @@ namespace NationsLeague.Models
             SaveChanges();
             Console.WriteLine("Created teams");
 
-
-
             var games = new Faker<Game>("de").CustomInstantiator(f =>
             {
                 var homeTeam = f.Random.ListItem(teams);
@@ -279,9 +265,7 @@ namespace NationsLeague.Models
 
                     HomeTeamNavigation = homeTeam,
                     AwayTeamNavigation = awayTeam,
-                    AdditionalAttributes = new AdditionalAttribute { 
-                    Value = new Value(3, DateTime.Now)
-                    }         
+                    Value = System.Text.Json.JsonSerializer.Serialize(date),
                 };
                 return g;
             })
@@ -291,7 +275,6 @@ namespace NationsLeague.Models
             SaveChanges();
             Console.WriteLine("Created games");
 
-            
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

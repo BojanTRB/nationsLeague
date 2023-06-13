@@ -20,21 +20,9 @@ namespace NationsLeague.Models
         public int Id { get; set; }
         public int HomeTeam { get; set; }
         public int AwayTeam { get; set; }
-        public AdditionalAttribute AdditionalAttributes { get; set; }
-
-       
-        public Game(int homeTeam, int awayTeam, AdditionalAttribute additionalAttribute, Team awayTeamNavigation, Team homeTeamNavigation, ICollection<Goal> goals)
-        {
-            HomeTeam = homeTeam;
-            AwayTeam = awayTeam;
-            AdditionalAttributes = additionalAttribute;
-            AwayTeamNavigation = awayTeamNavigation;
-            HomeTeamNavigation = homeTeamNavigation;
-            Goals = goals;
-        }
-
         [Required]
         [Unicode(false)]
+        public string Value { get; set; }
 
         [ForeignKey("AwayTeam")]
         [InverseProperty("GameAwayTeamNavigations")]
